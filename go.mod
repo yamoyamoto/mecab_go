@@ -1,5 +1,6 @@
 module github.com/yamoyamoto/mecab_go
 
+// +heroku goVersion go1.16
 go 1.16
 
 replace github.com/yamoyamoto/mecab_go/models => ./models
