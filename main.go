@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/bluele/mecab-golang"
-	"strings"
+	"github.com/yamoyamoto/mecab_go/features"
 )
 
 func parseToNode(m *mecab.MeCab) {
@@ -12,7 +12,7 @@ func parseToNode(m *mecab.MeCab) {
 		panic(err)
 	}
 	defer tg.Destroy()
-	lt, err := m.NewLattice("すもももももももものうち")
+	lt, err := m.NewLattice("かわぐちともやは大阪出身です")
 	if err != nil {
 		panic(err)
 	}
@@ -20,10 +20,9 @@ func parseToNode(m *mecab.MeCab) {
 
 	node := tg.ParseToNode(lt)
 	for {
-		features := strings.Split(node.Feature(), ",")
-		if features[0] == "名詞" {
-			fmt.Println(fmt.Sprintf("%s %s", node.Surface(), node.Feature()))
-		}
+		features := features.NewFeatures(node.Feature())
+		fmt.Println(node.Surface(), features)
+
 		if node.Next() != nil {
 			break
 		}
