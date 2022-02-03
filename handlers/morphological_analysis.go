@@ -14,7 +14,7 @@ type MorphologicalAnalysisResponse struct {
 
 type Morpheme struct {
 	Surface string `json:"surface"`
-	Count   int    `json"count"`
+	Count   int    `json:"count"`
 }
 
 func MorphologicalAnalysis(w http.ResponseWriter, r *http.Request) {
@@ -28,7 +28,11 @@ func MorphologicalAnalysis(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(s)
 	morphemes := Parse(s)
 
-	output, _ := json.Marshal(morphemes)
+	morphologicalAnalysisResponse := MorphologicalAnalysisResponse{
+		Morphemes: morphemes,
+	}
+
+	output, _ := json.Marshal(morphologicalAnalysisResponse)
 	w.Write(output)
 }
 
